@@ -3,9 +3,22 @@ import React, { useEffect, useState } from 'react';
 
 export default function App() {
 
-  const [todos, setTodos] = useState([]);
+  // Initialisation de l'état à partir du localStorage
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = localStorage.getItem("todos");
+    try {
+      return savedTodos ? JSON.parse(savedTodos) : [];
+    } catch (error) {
+      console.error("Erreur lors du chargement des données :", error);
+      return [];
+    }
+  });
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState("");
+
+  useEffect (() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos])
 
   const onSubmit = async (e) => {
     e.preventDefault();
