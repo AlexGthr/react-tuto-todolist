@@ -53,10 +53,18 @@ export default function App() {
     setEditId(null);
     setEditText("");
   }
+
+  const onClear = () => {
+    localStorage.clear();
+    location.reload();
+  }
   
   return (
     <div className="p-4 flex flex-col gap-4">
       <h1 className='text-center text-xl font-bold'>Ma todoList</h1>
+      <div className='w-full flex justify-center'>
+        <button className="bg-red-800 p-2 text-white rounded" onClick={onClear}>Clear localStorage</button>
+      </div>
       <form 
         className="flex items-center gap-2"
         onSubmit={onSubmit}
